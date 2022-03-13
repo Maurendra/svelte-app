@@ -68,11 +68,6 @@
               >
                 <p class="font-bold">View</p>
               </div>
-              <div
-                class="bg-red-400 hover:bg-red-800 text-white border-2 border-white rounded-lg py-2 px-4 cursor-pointer w-fit"
-              >
-                <p class="font-bold">Delete</p>
-              </div>
             </td>
           </tr>
         {/each}

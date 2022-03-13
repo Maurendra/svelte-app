@@ -1,12 +1,14 @@
 <script>
   import EventRepository from "../repositories/event_repository";
   import ModalDetailEvent from "../components/company/ModalDetailEvent.svelte";
+  import ModalAddEvent from "../components/company/ModalAddEvent.svelte";
   import { onMount } from "svelte";
   import { auth } from "../store";
   import { get } from "svelte/store";
 
   let events = [];
   let showDetailEvent = false;
+  let showModalAdd = false;
   let selectedEvent = null;
 
   const getEvents = async () => {
@@ -53,6 +55,9 @@
   <div class="max-w-6xl mx-auto py-8">
     <div
       class="bg-blue-400 hover:bg-blue-800 text-white border-2 border-white rounded-lg py-2 px-4 cursor-pointer w-fit mb-4"
+      on:click={() => {
+        showModalAdd = !showModalAdd;
+      }}
     >
       <p class="font-bold">Create New Event</p>
     </div>
@@ -106,6 +111,9 @@
         event={selectedEvent}
         bind:showDetail={showDetailEvent}
       />
+    {/if}
+    {#if showModalAdd}
+      <ModalAddEvent bind:showModal={showModalAdd} getData={getEvents} />
     {/if}
   </div>
 </div>
