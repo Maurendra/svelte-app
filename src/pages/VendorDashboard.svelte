@@ -1,10 +1,13 @@
 <script>
   import EventRepository from "../repositories/event_repository";
+  import ModalDetailEvent from "../components/vendor/ModalDetailEvent.svelte";
   import { onMount } from "svelte";
   import { auth } from "../store";
   import { get } from "svelte/store";
 
   let events = [];
+  let showDetailEvent = false;
+  let selectedEvent = null;
 
   const getEvents = async () => {
     const res = await EventRepository.fetchEvents();
@@ -21,6 +24,11 @@
         events = data;
       }
     }
+  };
+
+  const showDetail = (ev) => {
+    selectedEvent = ev;
+    showDetailEvent = true;
   };
 
   const formatDate = (dateData) => {
@@ -64,6 +72,7 @@
             </td>
             <td class="border px-8 py-4 flex space-x-2">
               <div
+                on:click={() => showDetail(event)}
                 class="bg-blue-400 hover:bg-blue-800 text-white border-2 border-white rounded-lg py-2 px-4 cursor-pointer w-fit"
               >
                 <p class="font-bold">View</p>
@@ -74,4 +83,11 @@
       </tbody>
     </table>
   </div>
+  {#if showDetailEvent}
+    <ModalDetailEvent
+      event={selectedEvent}
+      bind:showDetail={showDetailEvent}
+      getData={getEvents}
+    />
+  {/if}
 </div>

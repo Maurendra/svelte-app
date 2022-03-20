@@ -45,7 +45,6 @@
       created_at: JSON.stringify(new Date()),
       location: location,
     };
-    console.log(submittedData);
     let res = await EventRepository.createEvent(submittedData);
     showModal = false;
     await getData();
